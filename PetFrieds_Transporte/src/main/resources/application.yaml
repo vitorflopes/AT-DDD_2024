@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: PetFrieds_Transporte
+
+  datasource:
+    url: jdbc:h2:mem:petfriends
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  cloud:
+    function:
+      definition: processarPedidoProntoParaEntrega
+    stream:
+      bindings:
+        processarPedidoProntoParaEntrega-in-0:
+          destination: pedidos-entrega-queue
+          group: transporte-group
+      rabbit:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
